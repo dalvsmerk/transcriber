@@ -1,0 +1,40 @@
+import os
+from watchdog.events import PatternMatchingEventHandler
+
+
+class AudioFileEventHandler(PatternMatchingEventHandler):
+    def __init__(self, model, whatsapp, logging):
+        super(AudioFileEventHandler, self).__init__(patterns=['*.mp3', '*.wav'])
+
+        self.model = model
+        self.whatsapp = whatsapp
+        self.logging = logging
+
+    def on_created(self, event):
+        if not event.is_directory:
+            result = self.model.transcribe(event.src_path)
+            filename, message = self.formatMessage(event.src_path, result)
+            
+            self.logging.log(self.logging.INFO, filename + '\n' + message)
+
+            self.whatsapp.sendGroupMessage(message, title=filename)
+
+        return super().on_created(event)
+    
+    def formatMessage(self, file_path, result):
+        filename = self.parse_filename(file_path)
+        message = ''
+
+        for segment in result['segments']:
+            message += segment['text'] + '\n'
+
+        return filename, message
+    
+    def parse_filename(self, path, keep_extension=False):
+        valid_path = path.replace('\\', os.sep)
+        basename = os.path.basename(valid_path)
+
+        if keep_extension:
+            return basename
+
+        return basename.replace('.mp3', '').replace('.wav', '')
