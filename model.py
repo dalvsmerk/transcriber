@@ -7,4 +7,5 @@ class Whisper:
         self.language = language
 
     def transcribe(self, audio_path):
-        return whisper.transcribe(self.model, audio_path, language=self.language, task='transcribe')
+        return whisper.transcribe(self.model, audio_path, language=self.language, 
+                                  task='transcribe', temperature=0)
