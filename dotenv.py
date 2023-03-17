@@ -1,6 +1,6 @@
 import platform
 
-CP1252 = 'cp1252'
+CP1251 = 'cp1251'
 UTF8 = 'utf-8'
 
 def is_windows():
@@ -8,12 +8,12 @@ def is_windows():
 
 
 def get_platform_encoding():
-    return CP1252 if is_windows() else UTF8
+    return CP1251 if is_windows() else UTF8
 
 
 def try_decode_windows(text):
     if is_windows():
-        return text.encode(CP1252).decode(UTF8)
+        return text.encode(CP1251).decode(UTF8)
 
     return text
 
