@@ -19,11 +19,7 @@ class Whisper:
 
         path = audio_path
 
-        if is_windows():
-            # Escape spaces
-            path = path.replace(' ', '\\ ')
-
-        script = "whisper '{}' --language {} --fp16 False --output_format json".format(path, self.language)
+        script = 'whisper "{}" --language {} --fp16 False --output_format json'.format(path, self.language)
         exit_code = os.system(script)
 
         if exit_code != 0:

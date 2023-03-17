@@ -1,9 +1,4 @@
 watchdog==2.3.1
-ffmpeg-python==0.2.0
-torch==1.13.1
-torchaudio==0.13.1
-torchvision==0.14.1
-transformers==4.26.1
 openai-whisper==20230308
 selenium==4.8.2
 webdriver-manager==3.8.5
