@@ -21,12 +21,10 @@ def try_decode_windows(text):
 def load_dotenv():
     env = dict()
 
-    newline = '\r\n' if is_windows() else '\n'
-
     with open('.env', mode='r', encoding=get_platform_encoding()) as f:
         for line in f.readlines():
             line = try_decode_windows(line)
-            pair = line.replace(newline, '').split('=')
+            pair = line.replace('\r', '').replace('\n', '').split('=')
             env[pair[0]] = pair[1]
 
     return env

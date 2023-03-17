@@ -2,6 +2,7 @@ import os
 import json
 # import whisper
 from file_utils import parse_filename
+from dotenv import is_windows
 
 
 class Whisper:
@@ -16,7 +17,13 @@ class Whisper:
         #                           task='transcribe', temperature=0, fp16=False)
         self.logging.log(self.logging.INFO, "Transcribing '{}'...".format(audio_path))
 
-        script = "whisper '{}' --language {} --fp16 False --output_format json".format(audio_path, self.language)
+        path = audio_path
+
+        if is_windows():
+            # Escape spaces
+            path = path.replace(' ', '\\ ')
+
+        script = "whisper '{}' --language {} --fp16 False --output_format json".format(path, self.language)
         exit_code = os.system(script)
 
         if exit_code != 0:
