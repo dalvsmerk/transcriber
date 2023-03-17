@@ -1,5 +1,5 @@
-import os
 from watchdog.events import PatternMatchingEventHandler
+from file_utils import parse_filename
 
 
 class AudioFileEventHandler(PatternMatchingEventHandler):
@@ -16,7 +16,7 @@ class AudioFileEventHandler(PatternMatchingEventHandler):
                 result = self.model.transcribe(event.src_path)
                 filename, message = self.formatMessage(event.src_path, result)
                 
-                self.logging.log(self.logging.INFO, filename + '\n' + message)
+                # self.logging.log(self.logging.INFO, filename + '\n' + message)
 
                 self.whatsapp.sendGroupMessage(message, title=filename)
             except Exception as e:
@@ -25,19 +25,10 @@ class AudioFileEventHandler(PatternMatchingEventHandler):
         return super().on_created(event)
     
     def formatMessage(self, file_path, result):
-        filename = self.parse_filename(file_path)
+        filename = parse_filename(file_path)
         message = ''
 
         for segment in result['segments']:
             message += segment['text'] + '\n'
 
         return filename, message
-    
-    def parse_filename(self, path, keep_extension=False):
-        valid_path = path.replace('\\', os.sep)
-        basename = os.path.basename(valid_path)
-
-        if keep_extension:
-            return basename
-
-        return basename.replace('.mp3', '').replace('.wav', '')

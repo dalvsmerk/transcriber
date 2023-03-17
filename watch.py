@@ -17,7 +17,7 @@ if __name__ == "__main__":
     env = load_dotenv()
 
     logging.log(logging.INFO, 'Loading Whisper...')
-    model = Whisper(language=env['WHISPER_LANGUAGE'])
+    model = Whisper(logging, language=env['WHISPER_LANGUAGE'])
     logging.log(logging.INFO, 'Whisper has loaded')
     
     logging.log(logging.INFO, 'Loading Whatsapp...')
