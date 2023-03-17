@@ -11,7 +11,7 @@ pip install -r requirements.txt
 3. Specify name of Whatsapp group in `.env` file where to send transcriptions. For example:
 ```
 WHATSAPP_GROUP_NAME=Name of Whatsapp group
-WHISPER_LANGUAGE=en
+WHISPER_LANGUAGE=English
 ```
 
 
