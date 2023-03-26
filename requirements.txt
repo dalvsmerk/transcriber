@@ -2,3 +2,6 @@ watchdog==2.3.1
 openai-whisper==20230308
 selenium==4.8.2
 webdriver-manager==3.8.5
+numpy==1.21.2
+soundfile==0.12.1
+noisereduce==2.0.1

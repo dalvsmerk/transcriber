@@ -1,4 +1,5 @@
 import whisper
+from noise_reduction import read_audio, reduce_noise
 
 
 class Whisper:
@@ -11,5 +12,8 @@ class Whisper:
         # whisper ~/git/transcribe/data/2022-03-13/harvard.wav --language English --fp16 False --output_format json
         self.logging.log(self.logging.INFO, "Transcribing '{}'...".format(audio_path))
 
-        return whisper.transcribe(self.model, audio_path, language=self.language, 
+        recording, sample_rate = read_audio(audio_path)
+        recording_clean = reduce_noise(recording, sample_rate)
+
+        return whisper.transcribe(self.model, recording_clean, language=self.language, 
                                   task='transcribe', temperature=0, fp16=False)
