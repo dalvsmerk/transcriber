@@ -18,7 +18,7 @@ class AudioFileEventHandler(PatternMatchingEventHandler):
                 
                 self.logging.log(self.logging.INFO, filename + '\n' + message)
 
-                self.whatsapp.sendGroupMessage(message, title=filename)
+                self.whatsapp.send_group_message(message, title=filename)
             except Exception as e:
                 print(e)
 

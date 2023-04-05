@@ -21,7 +21,7 @@ if __name__ == "__main__":
     logging.log(logging.INFO, 'Whisper has loaded')
     
     logging.log(logging.INFO, 'Loading Whatsapp...')
-    whatsapp = Whatsapp(group_name=env['WHATSAPP_GROUP_NAME'])
+    whatsapp = Whatsapp(logging, group_name=env['WHATSAPP_GROUP_NAME'])
     logging.log(logging.INFO, 'Whatsapp has loaded')
 
     event_handler = AudioFileEventHandler(model, whatsapp, logging)
