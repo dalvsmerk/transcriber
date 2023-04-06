@@ -4,11 +4,11 @@ import numpy as np
 import os
 
 def read_audio(audio_path):
-    valid_path = audio_path.replace('\\', os.sep)
+    # valid_path = audio_path.replace('\\', os.sep)
     
     # Reads as float64 by default
     # If reads as float32 then array is empty
-    rec, sr = sf.read(valid_path, dtype='float64')
+    rec, sr = sf.read(audio_path, dtype='float64')
 
     # whisper requires float32 np.array if using np.array as input
     return np.float32(rec), sr
